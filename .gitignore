@@ -1,0 +1,6 @@
+*.pyc
+dist/*
+src/pdfcropper.egg-info/*
+docs/_build
+MANIFEST
+*.html
