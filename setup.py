@@ -77,11 +77,12 @@ setup(
 
     # scripts=[''],
 
-    namespace_packages=['pdfcropper'],
+    # namespace_packages=['pdfcropper'],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
         'setuptools',
+        "pyPdf"
     ],
     extras_require={
         "test": [
