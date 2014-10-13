@@ -8,19 +8,22 @@ import sys
 import os.path
 import argparse
 
-# try:
-#     import pdfcropper
-# except ImportError:
-sys.path.insert(0, os.path.abspath('../src'))
-import pdfcropper
+try:
+    import pdfcropper
+except ImportError:
+    sys.path.insert(0, os.path.abspath('../src'))
+    import pdfcropper
 
 
 # Variables ===================================================================
-
+OUT_SUFFIX = "_cropped.pdf"
 
 
 # Functions & objects =========================================================
+def _get_output_name(fn):
+    fn = os.path.basename(fn)
 
+    return fn.rsplit(".", 1)[0] + OUT_SUFFIX
 
 
 # Main program ================================================================
@@ -60,8 +63,8 @@ if __name__ == '__main__':
         "-o",
         "--output",
         nargs=1,
-        help="""Save modified file to given destination. Use - for stdout. If
-                not set, suffix '_cropped.pdf' is used."""
+        help="""Save modified file to given destination. If not set, suffix
+                '%s' is used.""" % OUT_SUFFIX
     )
     parser.add_argument(
         "filename",
@@ -101,4 +104,8 @@ if __name__ == '__main__':
         )
 
     # save output
-    pdfcropper.save_pdf("somefile.pdf", out_pdf)
+    out_file = _get_output_name(args.filename)
+    if args.output:
+        out_file = args.output
+
+    pdfcropper.save_pdf(out_file, out_pdf)
