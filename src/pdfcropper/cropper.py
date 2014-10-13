@@ -77,6 +77,5 @@ def read_pdf(filename):
 
 
 def save_pdf(filename, content):
-    out_file = file(filename, 'wb')
-    content.write(out_file)
-    out_file.close()
+    with file(filename, 'wb') as f:
+        content.write(f)
