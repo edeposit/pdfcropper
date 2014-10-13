@@ -26,27 +26,57 @@ def crop_page(page, left, right, top, bottom):
     return page
 
 
-def crop_all(pdf, left, right, top, bottom):
+def crop_all(pdf, left, right, top, bottom, remove=[]):
     out = PdfFileWriter()
 
     # crop pages
-    for page in pdf.pages:
-        out.append(
+    for cnt, page in enumerate(pdf.pages):
+        if cnt in remove:
+            continue
+
+        out.addPage(
             crop_page(page, left, right, top, bottom)
         )
 
     return out
 
 
-# Main program ================================================================
-if __name__ == '__main__':
+def crop_differently(pdf, even_vector, odd_vector, remove=[]):
+    out = PdfFileWriter()
+
+    # crop pages
+    for cnt, page in enumerate(pdf.pages):
+        if cnt in remove:
+            continue
+
+        crop_vector = even_vector if cnt % 2 == 0 else odd_vector
+        out.addPage(
+            crop_page(page, *crop_vector)
+        )
+
+    return out
 
 
-    # pdf = PdfFileReader(
-    #     open("lpm.pdf", 'rb')
-    # )
-    # out_pdf = crop(pdf, 50, 50, 50, 50)
+def remove_pages(pdf, remove=[]):
+    out = PdfFileWriter()
 
-    # out_file = file("lpm_out.pdf", 'wb')
-    # out_pdf.write(out_file)
-    # out_file.close()
+    # crop pages
+    for cnt, page in enumerate(pdf.pages):
+        if cnt in remove:
+            continue
+
+        out.addPage(page)
+
+    return out
+
+
+def read_pdf(filename):
+    return PdfFileReader(
+        open(filename, 'rb')
+    )
+
+
+def save_pdf(filename, content):
+    out_file = file(filename, 'wb')
+    content.write(out_file)
+    out_file.close()
