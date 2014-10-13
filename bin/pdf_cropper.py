@@ -8,6 +8,10 @@ import sys
 import os.path
 import argparse
 
+# try:
+#     import pdfcropper
+# except ImportError:
+sys.path.insert(0, os.path.abspath('../src'))
 import pdfcropper
 
 
@@ -29,22 +33,26 @@ if __name__ == '__main__':
         "-c",
         "--crop",
         nargs=4,
+        type=int,
         metavar="X",
-        help="""Crop vector for all or odd pages. Vector is in format LEFT
+        help="""Crop vector for all or even pages. Vector is in format LEFT
                 RIGHT TOP BOTTOM. -c 50 50 10 10 for example."""
     )
     parser.add_argument(
         "-e",
-        "--crop-even",
+        "--crop-odd",
         nargs=4,
+        type=int,
         metavar="X",
-        help="""Crop vector for even pages. Vector is in format LEFT RIGHT TOP
+        help="""Crop vector for odd pages. Vector is in format LEFT RIGHT TOP
                 BOTTOM. -c 50 50 10 10 for example."""
     )
     parser.add_argument(
         "-r",
         "--remove",
+        type=int,
         nargs="+",
+        default=[],
         metavar="PAGE",
         help="Remove following pages. Page numbers starts from zero."
     )
@@ -65,4 +73,32 @@ if __name__ == '__main__':
         sys.stderr.write("Can't open '%s'!\n" % args.filename)
         sys.exit(1)
 
-    print args
+    if args.crop_odd and not args.crop:
+        sys.stderr.write("You have to specify also even vector!\n")
+        sys.exit(1)
+
+    if not any([args.crop, args.crop_odd, args.remove]):
+        sys.stderr.write("No action selected!\n")
+        sys.exit(1)
+
+    input_pdf = pdfcropper.read_pdf(args.filename)
+
+    out_pdf = None
+    if args.remove and not args.crop and not args.crop_odd:
+        out_pdf = pdfcropper.remove_pages(input_pdf, args.pages)
+    elif args.crop and not args.crop_odd:
+        out_pdf = pdfcropper.crop_all(
+            input_pdf,
+            *args.crop,
+            remove=args.remove
+        )
+    else:
+        out_pdf = pdfcropper.crop_differently(
+            input_pdf,
+            args.crop,
+            args.crop_odd,
+            args.remove
+        )
+
+    # save output
+    pdfcropper.save_pdf("somefile.pdf", out_pdf)
