@@ -101,7 +101,19 @@ def crop_differently(pdf, even_vector, odd_vector, remove=[]):
     return out
 
 
-def remove_pages(pdf, remove=[]):
+def remove_pages(pdf, remove):
+    """
+    Remove pages specified in vector `remove`.
+
+    Args:
+        pdf (obj): :mod:`pyPdf` :class:`PdfFileReader` object.
+        remove (list/tuple, default []): List of integers. As the function
+               iterates thru the pages in `pdf`, indexes of the pages which
+               matchs those in `remove` will be skipped.
+
+    Returns:
+        obj: :class:`PdfFileWriter` instance, with modified pages.
+    """
     out = PdfFileWriter()
 
     # crop pages
