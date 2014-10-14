@@ -5,6 +5,9 @@
 #
 """
 This file contains API for cropping PDF files.
+
+Note:
+    All sizes used in this module should be in millimeters.
 """
 # Imports =====================================================================
 import copy
