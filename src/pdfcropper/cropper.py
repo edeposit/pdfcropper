@@ -7,13 +7,24 @@
 from pyPdf import PdfFileWriter, PdfFileReader
 
 
-
-# Variables ===================================================================
-
-
-
 # Functions & objects =========================================================
 def crop_page(page, left, right, top, bottom):
+    """
+    Crop `page` to size given by `left`, `right`, `top` and `bottom`.
+
+    Args:
+        page (obj): pyPdf PdfFileReader's page object.
+        left (int): Cut X millimeters from left.
+        right (int): Cut X millimeters from right.
+        top (int): Cut X millimeters from top.
+        bottom (int): Cut X millimeters from bottom.
+
+    Warning:
+        This functions modieies the `page` reference!
+
+    Returns:
+        obj: Modified page object.
+    """
     page.mediaBox.upperRight = (
         page.mediaBox.getUpperRight_x() - right,
         page.mediaBox.getUpperRight_y() - top
