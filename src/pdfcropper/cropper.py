@@ -13,7 +13,7 @@ def crop_page(page, left, right, top, bottom):
     Crop `page` to size given by `left`, `right`, `top` and `bottom`.
 
     Args:
-        page (obj): pyPdf PdfFileReader's page object.
+        page (obj): :mod:`pyPdf` PdfFileReader's page object.
         left (int): Cut X millimeters from left.
         right (int): Cut X millimeters from right.
         top (int): Cut X millimeters from top.
@@ -38,6 +38,22 @@ def crop_page(page, left, right, top, bottom):
 
 
 def crop_all(pdf, left, right, top, bottom, remove=[]):
+    """
+    Crop all pages in `pdf`. Remove pages specified by `remove`.
+
+    Args:
+        pdf (obj): :mod:`pyPdf` :class:`PdfFileReader` object.
+        left (int): Cut X millimeters from left.
+        right (int): Cut X millimeters from right.
+        top (int): Cut X millimeters from top.
+        bottom (int): Cut X millimeters from bottom.
+        remove (list/tuple, default []): List of integers. As the function
+               iterates thru the pages in `pdf`, indexes of the pages which
+               matchs those in `remove` will be skipped.
+
+    Returns:
+        obj: :class:`PdfFileWriter` instance.
+    """
     out = PdfFileWriter()
 
     # crop pages
