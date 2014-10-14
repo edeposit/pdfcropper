@@ -52,7 +52,7 @@ def crop_all(pdf, left, right, top, bottom, remove=[]):
                matchs those in `remove` will be skipped.
 
     Returns:
-        obj: :class:`PdfFileWriter` instance.
+        obj: :class:`PdfFileWriter` instance, with modified pages.
     """
     out = PdfFileWriter()
 
@@ -69,6 +69,23 @@ def crop_all(pdf, left, right, top, bottom, remove=[]):
 
 
 def crop_differently(pdf, even_vector, odd_vector, remove=[]):
+    """
+    Crop `pdf` even pages by `even_vector` and odd pages by `odd_vector`.
+    Remove pages specified by `remove`.
+
+    Args:
+        pdf (obj): :mod:`pyPdf` :class:`PdfFileReader` object.
+        even_vector (list): List of coordinates to which all even pages will
+                    be cropped. ``[Left, Right, Top, Bottom]``.
+        edd_vector (list): List of coordinates to which all odd pages will
+                    be cropped. ``[Left, Right, Top, Bottom]``.
+        remove (list/tuple, default []): List of integers. As the function
+               iterates thru the pages in `pdf`, indexes of the pages which
+               matchs those in `remove` will be skipped.
+
+    Returns:
+        obj: :class:`PdfFileWriter` instance, with modified pages.
+    """
     out = PdfFileWriter()
 
     # crop pages
