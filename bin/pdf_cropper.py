@@ -16,11 +16,24 @@ except ImportError:
 
 
 # Variables ===================================================================
-OUT_SUFFIX = "_cropped.pdf"
+OUT_SUFFIX = "_cropped.pdf"  #: Default suffix for input filename.
 
 
 # Functions & objects =========================================================
 def _get_output_name(fn):
+    """
+    Compose name of the default output filename.
+
+    For example:
+        _get_output_name("/hello/joe.pdf") -> "joe_OUT_SUFFIX"
+        _get_output_name("/hello/joe.pdf") -> "joe_cropped.pdf"
+
+    Args:
+        fn (str): Path to the input filename.
+
+    Returns:
+        str: Path to the output filename.
+    """
     fn = os.path.basename(fn)
 
     return fn.rsplit(".", 1)[0] + OUT_SUFFIX
@@ -87,15 +100,15 @@ if __name__ == '__main__':
     input_pdf = pdfcropper.read_pdf(args.filename)
 
     out_pdf = None
-    if args.remove and not args.crop and not args.crop_odd:
+    if args.remove and not args.crop and not args.crop_odd:  # just remove
         out_pdf = pdfcropper.remove_pages(input_pdf, args.pages)
-    elif args.crop and not args.crop_odd:
+    elif args.crop and not args.crop_odd:  # remove/crop all pages same style
         out_pdf = pdfcropper.crop_all(
             input_pdf,
             *args.crop,
             remove=args.remove
         )
-    else:
+    else:  # crop even and odd pages by different coordinates
         out_pdf = pdfcropper.crop_differently(
             input_pdf,
             args.crop,
@@ -103,9 +116,11 @@ if __name__ == '__main__':
             args.remove
         )
 
-    # save output
-    out_file = _get_output_name(args.filename)
+    # output filename - if specified, get user's input, if not, compose generic
+    # name using _get_output_name()
+    out_fn = _get_output_name(args.filename)
     if args.output:
-        out_file = args.output
+        out_fn = args.output
 
-    pdfcropper.save_pdf(out_file, out_pdf)
+    # save output
+    pdfcropper.save_pdf(out_fn, out_pdf)
