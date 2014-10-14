@@ -127,11 +127,27 @@ def remove_pages(pdf, remove):
 
 
 def read_pdf(filename):
+    """
+    Read pdf file specified by `filename`.
+
+    Args:
+        filename (str): Path to the pdf file.
+
+    Returns:
+        obj: :class:`PdfFileReader` object.
+    """
     return PdfFileReader(
         open(filename, 'rb')
     )
 
 
 def save_pdf(filename, content):
+    """
+    Save `content` to `filename`.
+
+    Args:
+        filename (str): Path which will be used for `content`.
+        content (obj): :class:`PdfFileWriter` object which will be serialized.
+    """
     with file(filename, 'wb') as f:
         content.write(f)
