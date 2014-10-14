@@ -3,6 +3,9 @@
 #
 # Interpreter version: python 2.7
 #
+"""
+This file contains API for cropping PDF files.
+"""
 # Imports =====================================================================
 from pyPdf import PdfFileWriter, PdfFileReader
 
