@@ -7,10 +7,33 @@
 This file contains API for cropping PDF files.
 """
 # Imports =====================================================================
+import copy
+
 from pyPdf import PdfFileWriter, PdfFileReader
+from pyPdf.generic import FloatObject
+
+
+# Variables ===================================================================
+POINT_MM = 25.4 / 72.0  #: 1pt = inch/72, 1 inch = 25.4 mm
 
 
 # Functions & objects =========================================================
+def get_width_height(page):
+    """
+    Return width and height of the `page`.
+
+    Args:
+        page (obj): ``PdfFileReader.pages`` instance.
+
+    Returns:
+        tuple: ``(width, height)`` as float, in millimeters.
+    """
+    return (
+        float(page.mediaBox.getWidth()) * POINT_MM,
+        float(page.mediaBox.getHeight()) * POINT_MM
+    )
+
+
 def crop_page(page, left, right, top, bottom):
     """
     Crop `page` to size given by `left`, `right`, `top` and `bottom`.
@@ -28,13 +51,15 @@ def crop_page(page, left, right, top, bottom):
     Returns:
         obj: Modified page object.
     """
+    page = copy.deepcopy(page)
+
     page.mediaBox.upperRight = (
-        page.mediaBox.getUpperRight_x() - right,
-        page.mediaBox.getUpperRight_y() - top
+        page.mediaBox.getUpperRight_x() - FloatObject(right / POINT_MM),
+        page.mediaBox.getUpperRight_y() - FloatObject(top / POINT_MM)
     )
     page.mediaBox.lowerLeft = (
-        page.mediaBox.getLowerLeft_x() + left,
-        page.mediaBox.getLowerLeft_y() + bottom
+        page.mediaBox.getLowerLeft_x() + FloatObject(left / POINT_MM),
+        page.mediaBox.getLowerLeft_y() + FloatObject(bottom / POINT_MM)
     )
 
     return page
