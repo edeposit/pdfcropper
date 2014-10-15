@@ -140,11 +140,15 @@ def test_crop_differently_remove():
 
 
 def test_remove_pages():
-    pass
+    pdf = cropper.read_pdf(DATA_FILE)
 
+    new_pdf = cropper.remove_pages(pdf, [0])
+    cropper.save_pdf(TMP_FILE, new_pdf)
 
-def test_save_pdf():
-    pass
+    new_pdf = cropper.read_pdf(TMP_FILE)
+
+    assert len(pdf.pages) == 2
+    assert len(new_pdf.pages) == 1
 
 
 def teardown_module():
