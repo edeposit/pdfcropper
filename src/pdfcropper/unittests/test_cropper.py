@@ -71,6 +71,11 @@ def test_crop_all():
         assert aprx_same(original_width - cropped_width, 20)
         assert aprx_same(original_height - cropped_height, 20)
 
+        assert not aprx_same(original_width - cropped_width, 40)
+        assert not aprx_same(original_height - cropped_height, 40)
+
+    os.unlink(TMP_FILE)
+
 
 def test_crop_all_remove():
     pdf = cropper.read_pdf(DATA_FILE)
@@ -83,9 +88,55 @@ def test_crop_all_remove():
     assert len(pdf.pages) == 2
     assert len(new_pdf.pages) == 1
 
+    os.unlink(TMP_FILE)
+
 
 def test_crop_differently():
-    pass
+    pdf = cropper.read_pdf(DATA_FILE)
+    dimensions_list = map(
+        lambda x: cropper.get_width_height(x),
+        pdf.pages
+    )
+
+    new_pdf = cropper.crop_differently(
+        pdf,
+        [10, 10, 10, 10],
+        [20, 20, 20, 20]
+    )
+    cropper.save_pdf(TMP_FILE, new_pdf)
+
+    new_pdf = cropper.read_pdf(TMP_FILE)
+
+    # check that all pages were cropped
+    for pagenum, page in enumerate(new_pdf.pages):
+        original_width, original_height = dimensions_list[pagenum]
+        cropped_width, cropped_height = cropper.get_width_height(page)
+
+        size = 20 if (pagenum % 2) == 0 else 40
+
+        assert aprx_same(original_width - cropped_width, size)
+        assert aprx_same(original_height - cropped_height, size)
+
+    os.unlink(TMP_FILE)
+
+
+def test_crop_differently_remove():
+    pdf = cropper.read_pdf(DATA_FILE)
+
+    new_pdf = cropper.crop_differently(
+        pdf,
+        [10, 10, 10, 10],
+        [20, 20, 20, 20],
+        remove=[0]
+    )
+    cropper.save_pdf(TMP_FILE, new_pdf)
+
+    new_pdf = cropper.read_pdf(TMP_FILE)
+
+    assert len(pdf.pages) == 2
+    assert len(new_pdf.pages) == 1
+
+    os.unlink(TMP_FILE)
 
 
 def test_remove_pages():

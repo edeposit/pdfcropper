@@ -120,7 +120,7 @@ def crop_differently(pdf, even_vector, odd_vector, remove=[]):
         if cnt in remove:
             continue
 
-        crop_vector = even_vector if cnt % 2 == 0 else odd_vector
+        crop_vector = even_vector if (cnt % 2) == 0 else odd_vector
         out.addPage(
             crop_page(page, *crop_vector)
         )
