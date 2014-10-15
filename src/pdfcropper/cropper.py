@@ -10,8 +10,6 @@ Note:
     All sizes used in this module should be in millimeters.
 """
 # Imports =====================================================================
-import copy
-
 from pyPdf import PdfFileWriter, PdfFileReader
 from pyPdf.generic import FloatObject
 
@@ -49,13 +47,11 @@ def crop_page(page, left, right, top, bottom):
         bottom (int): Cut X millimeters from bottom.
 
     Warning:
-        This functions modieies the `page` reference!
+        This functions modifies the `page` reference!
 
     Returns:
         obj: Modified page object.
     """
-    page = copy.deepcopy(page)
-
     page.mediaBox.upperRight = (
         page.mediaBox.getUpperRight_x() - FloatObject(right / POINT_MM),
         page.mediaBox.getUpperRight_y() - FloatObject(top / POINT_MM)
