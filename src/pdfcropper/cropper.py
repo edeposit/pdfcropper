@@ -4,10 +4,11 @@
 # Interpreter version: python 2.7
 #
 """
-This file contains API for cropping PDF files.
-
 Note:
     All sizes used in this module should be in millimeters.
+
+API
+---
 """
 # Imports =====================================================================
 from pyPdf import PdfFileWriter, PdfFileReader
