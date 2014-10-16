@@ -75,7 +75,9 @@ setup(
     packages=find_packages('src'),
     package_dir={'': 'src'},
 
-    # scripts=[''],
+    scripts=[
+        'bin/pdf_cropper.py'
+    ],
 
     # namespace_packages=['pdfcropper'],
     include_package_data=True,
