@@ -1,17 +1,15 @@
 pdfcropper package
 ==================
 
+.. automodule:: pdfcropper
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 Submodules
 ----------
 
 .. toctree::
 
    pdfcropper.cropper
-
-Module contents
----------------
-
-.. automodule:: pdfcropper
-    :members:
-    :undoc-members:
-    :show-inheritance:
