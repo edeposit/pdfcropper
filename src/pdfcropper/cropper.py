@@ -105,7 +105,7 @@ def crop_differently(pdf, even_vector, odd_vector, remove=[]):
         pdf (obj): :mod:`pyPdf` :class:`PdfFileReader` object.
         even_vector (list): List of coordinates to which all even pages will
                     be cropped. ``[Left, Right, Top, Bottom]``.
-        edd_vector (list): List of coordinates to which all odd pages will
+        odd_vector (list): List of coordinates to which all odd pages will
                     be cropped. ``[Left, Right, Top, Bottom]``.
         remove (list/tuple, default []): List of integers. As the function
                iterates thru the pages in `pdf`, indexes of the pages which
