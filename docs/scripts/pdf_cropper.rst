@@ -1,8 +1,6 @@
 pdf_cropper.py
 ==============
 
-Test script used to show output of all downloaded data.
-
 Help::
 
   usage: pdf_cropper.py [-h] [-c X X X X] [-e X X X X] [-r PAGE [PAGE ...]]
@@ -36,3 +34,8 @@ Which will crop the file :download:`ukazka01b.pdf </_static/ukazka01b.pdf>` ten
 millimeters from left and right and five millimeters from up and down. ``-r`` or
 ``--remove`` parameter will also remove page at index ``0``. Result can be seen
 in :download:`ukazka01b_cropped.pdf </_static/ukazka01b_cropped.pdf>`.
+
+Česká verze
+-----------
+
+- :doc:`/scripts/pdf_cropper_cz`

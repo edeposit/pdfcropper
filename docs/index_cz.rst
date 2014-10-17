@@ -4,6 +4,11 @@ PDF ořezávač
 Cílem tohoto projektu je poskytnout script pro ořezávání PDF souborů, jako
 součást projektu E-deposit.
 
+English version
+---------------
+
+- :doc:`/index`
+
 Script
 ------
 
@@ -12,7 +17,7 @@ Z uživatelského hlediska je dostupný následující script:
 .. toctree::
     :maxdepth: 1
 
-    /scripts/pdf_cropper
+    /scripts/pdf_cropper_cz
 
 API
 ---

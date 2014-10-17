@@ -4,6 +4,11 @@ PDF cropper
 This project is aimed to provide simple and easy to use script for cropping
 PDF files as part of the E-deposit project.
 
+Česká verze
+-----------
+
+- :doc:`/index_cz`
+
 Script
 ------
 

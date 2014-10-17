@@ -44,3 +44,8 @@ deset milimetrů z leva a z prava a pět milimetrů zezhora a zezdola. Parametr
 
 Výsledek je možné vidět v souboru in :download:`ukazka01b_cropped.pdf
 </_static/ukazka01b_cropped.pdf>`.
+
+English version
+---------------
+
+- :doc:`/scripts/pdf_cropper`
